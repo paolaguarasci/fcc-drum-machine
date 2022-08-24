@@ -12,15 +12,6 @@ import s7 from './assets/sounds/drum/80s-CRASH1.wav';
 import s8 from './assets/sounds/drum/80s-HICONGA.wav';
 import s9 from './assets/sounds/drum/80s-TOM2.wav';
 
-/*
-
-User Story #6: 
-When I press the trigger key associated with each .drum-pad, the audio clip contained in its child audio 
-element should be triggered (e.g. pressing the Q key should trigger the drum pad which contains the string Q, 
-pressing the W key should trigger the drum pad which contains the string W, etc.).
-
-*/
-
 function ButtonI(props) {
   const [isActive, setActive] = useState(false);
   const mapperSound = {
@@ -36,20 +27,27 @@ function ButtonI(props) {
   };
 
   useEffect(() => {
-    if (props.selectedKey == props.keyButton || props.selectedKey == props.keyButton.toUpperCase()) {
+    document.addEventListener('keydown', handleKeyPress);
+    return () => {};
+  }, []);
+
+  const handleKeyPress = (event) => {
+    if (
+      event.key == props.keyButton ||
+      event.key == props.keyButton.toUpperCase()
+    ) {
       handleClick();
       props.setKey('');
     }
-    return () => {};
-  });
+  };
 
   const handleClick = () => {
     if (props.powerState) {
       setActive(true);
 
-      let a = document.querySelector(`audio#${props.keyButton.toUpperCase()}`)
+      let a = document.querySelector(`audio#${props.keyButton.toUpperCase()}`);
       a.play();
-      
+
       props.setMsg(props.name);
       setTimeout(() => {
         setActive(false);
@@ -67,7 +65,11 @@ function ButtonI(props) {
       onClick={handleClick}
     >
       <p>{props.keyButton.toUpperCase()}</p>
-      <audio id={props.keyButton.toUpperCase()} className="clip" src={mapperSound[props.keyButton]} ></audio>
+      <audio
+        id={props.keyButton.toUpperCase()}
+        className="clip"
+        src={mapperSound[props.keyButton]}
+      ></audio>
     </div>
   );
 }
@@ -140,10 +142,10 @@ function App() {
   const [selectedPower, setPower] = useState(true);
   const [selectedVolume, setVolume] = useState(45);
 
-  useEffect(() => {
-    document.addEventListener('keydown', handleKeyPress);
-    return () => {};
-  }, []);
+  // useEffect(() => {
+  //   document.addEventListener('keydown', handleKeyPress);
+  //   return () => {};
+  // }, []);
 
   const handleKeyPress = (event) => {
     setKey(event.key);
