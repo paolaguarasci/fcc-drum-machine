@@ -28,13 +28,14 @@ function ButtonI(props) {
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyPress);
+    console.log("ciao")
     return () => {};
   }, []);
 
   const handleKeyPress = (event) => {
     if (
-      event.key == props.keyButton ||
-      event.key == props.keyButton.toUpperCase()
+      event.key === props.keyButton ||
+      event.key === props.keyButton.toUpperCase()
     ) {
       handleClick();
     }
