@@ -126,7 +126,7 @@ function VolumeSlider(props) {
       />
     </div>
   );
-  }
+}
 
 function App() {
   const [selectedMessage, setMessage] = useState('');
