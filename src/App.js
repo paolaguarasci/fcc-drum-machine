@@ -11,7 +11,15 @@ import s6 from './assets/sounds/drum/80s-TOM1.wav';
 import s7 from './assets/sounds/drum/80s-CRASH1.wav';
 import s8 from './assets/sounds/drum/80s-HICONGA.wav';
 import s9 from './assets/sounds/drum/80s-TOM2.wav';
-import useSound from 'use-sound'; // https://github.com/joshwcomeau/use-sound
+
+/*
+
+User Story #6: 
+When I press the trigger key associated with each .drum-pad, the audio clip contained in its child audio 
+element should be triggered (e.g. pressing the Q key should trigger the drum pad which contains the string Q, 
+pressing the W key should trigger the drum pad which contains the string W, etc.).
+
+*/
 
 function ButtonI(props) {
   const [isActive, setActive] = useState(false);
@@ -27,12 +35,8 @@ function ButtonI(props) {
     c: s9
   };
 
-  const [playSound] = useSound(mapperSound[props.keyButton], {
-    volume: props.volume / 100
-  });
-
   useEffect(() => {
-    if (props.selectedKey == props.keyButton) {
+    if (props.selectedKey == props.keyButton || props.selectedKey == props.keyButton.toUpperCase()) {
       handleClick();
       props.setKey('');
     }
@@ -42,7 +46,10 @@ function ButtonI(props) {
   const handleClick = () => {
     if (props.powerState) {
       setActive(true);
-      playSound();
+
+      let a = document.querySelector(`audio#${props.keyButton.toUpperCase()}`)
+      a.play();
+      
       props.setMsg(props.name);
       setTimeout(() => {
         setActive(false);
@@ -53,16 +60,24 @@ function ButtonI(props) {
 
   return (
     <div
-      className={isActive ? 'b-instrument-pressed' : 'b-instrument'}
+      id={props.keyButton.toUpperCase()}
+      className={
+        isActive ? 'b-instrument-pressed drum-pad' : 'b-instrument drum-pad'
+      }
       onClick={handleClick}
     >
       <p>{props.keyButton.toUpperCase()}</p>
+      <audio id={props.keyButton.toUpperCase()} className="clip" src={mapperSound[props.keyButton]} ></audio>
     </div>
   );
 }
 
 function DisplayName(props) {
-  return <div className="display-name">{props.toDisplay}</div>;
+  return (
+    <div className="display-name" id="display">
+      {props.toDisplay}
+    </div>
+  );
 }
 
 function ButtonP(props) {
@@ -79,13 +94,15 @@ function ButtonP(props) {
     }, 1000);
   };
 
-
-
   return (
     <div className="powerbutton">
       <h3>Power</h3>
       <label className="switch">
-        <input type="checkbox" onChange={handleClick} checked={props.powerState}/>
+        <input
+          type="checkbox"
+          onChange={handleClick}
+          checked={props.powerState}
+        />
         <span className="slider"></span>
       </label>
     </div>
@@ -103,7 +120,7 @@ function VolumeSlider(props) {
   };
 
   return (
-    <div className='volume-slider'>
+    <div className="volume-slider">
       <h3>Volume</h3>
       <input
         type="range"
@@ -134,7 +151,7 @@ function App() {
 
   return (
     <div className="App">
-      <div className="pad">
+      <div className="pad" id="drum-machine">
         <div className="intruments">
           <ButtonI
             volume={selectedVolume}
