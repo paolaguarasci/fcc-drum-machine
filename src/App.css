@@ -1,5 +1,28 @@
+:root {
+  --c1: #1abc9c;
+  --c2: #16a085;
+  --c3: #2ecc71;
+  --c4: #27ae60;
+  --c5: #3498db;
+  --c6: #2980b9;
+  --c7: #9b59b6;
+  --c8: #8e44ad;
+  --c9: #34495e;
+  --c10: #2c3e50;
+  --c11: #f1c40f;
+  --c12: #f39c12;
+  --c13: #e67e22;
+  --c14: #d35400;
+  --c15: #e74c3c;
+  --c16: #c0392b;
+  --c17: #ecf0f1;
+  --c18: #bdc3c7;
+  --c19: #95a5a6;
+  --c20: #7f8c8d;
+}
+
 .App {
-  background: yellow;
+  background: var(--c17);
   width: 100%;
   height: 100vh;
   overflow: hidden;
@@ -11,31 +34,32 @@
 .drum-pad {
   width: 125px;
   height: 100px;
-  background: gray;
+  background: var(--c13);
   display: flex;
   margin: 10px;
   align-items: center;
   justify-content: center;
   border-radius: 3px;
+  font-family: 'Silkscreen', cursive;
+  font-size: 45px;
 }
 
 .pressed {
   width: 125px;
   height: 100px;
-  background: gray;
+  background: var(--c19);
   display: flex;
   margin: 10px;
   align-items: center;
   justify-content: center;
   border-radius: 3px;
-  background: greenyellow;
+  background: var(--c14);
 
+  font-size: 43px;
 
-
-  box-shadow: 4px 5px 6px -3px rgba(0,0,0,0.75) inset;
--webkit-box-shadow: 4px 5px 6px -3px rgba(0,0,0,0.75) inset;
--moz-box-shadow: 4px 5px 6px -3px rgba(0,0,0,0.75) inset;
-
+  box-shadow: 4px 5px 6px -3px rgba(0, 0, 0, 0.75) inset;
+  -webkit-box-shadow: 4px 5px 6px -3px rgba(0, 0, 0, 0.75) inset;
+  -moz-box-shadow: 4px 5px 6px -3px rgba(0, 0, 0, 0.75) inset;
 }
 
 .intruments {
@@ -45,24 +69,27 @@
   flex-wrap: nowrap;
   flex-wrap: wrap;
   width: 435px;
-  background: #001068;
+  background: var(--c19);
   border-radius: 3px;
   font-weight: bold;
   font-size: 26px;
+  height: fit-content;
+  border: 2px solid var(--c17)
 }
 
 #drum-machine {
-  background: black;
+  background: var(--c20);
   width: 750px;
-  height: 425px;
-  padding: 20px;
+  height: 360px;
+  padding: 12px 3px;
   display: flex;
-  /* align-items: center; */
+  align-items: center;
   justify-content: center;
+  border-radius: 5px;
+  border: 5px solid var(--c13);
 }
 
 .settings {
-  /* background: azure; */
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -71,42 +98,40 @@
 }
 
 #display {
-  width: 150px;
+  width: 180px;
   height: 25px;
-  background: green;
+  background: var(--c10);
   text-align: center;
   padding: 10px;
   font-size: large;
   font-weight: bold;
   margin-bottom: 35px;
+  font-family: 'Silkscreen', cursive;
+  color: var(--c4);
 }
-
 
 .powerbutton,
 .volume-slider {
-  color: green;
-font-weight: bold;
-width: 170px;
-text-align: center;
-margin-bottom: 35px;
+  color: var(--c10);
+  font-weight: bold;
+  width: 170px;
+  text-align: center;
+  margin-bottom: 35px;
 }
 
- /* The switch - the box around the slider */
- .switch {
+.switch {
   position: relative;
   display: inline-block;
   width: 60px;
   height: 34px;
 }
 
-/* Hide default HTML checkbox */
 .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-/* The slider */
 .slider {
   position: absolute;
   cursor: pointer;
@@ -115,28 +140,28 @@ margin-bottom: 35px;
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .slider:before {
   position: absolute;
-  content: "";
+  content: '';
   height: 26px;
   width: 26px;
   left: 4px;
   bottom: 4px;
   background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: #2196f3;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px #2196f3;
 }
 
 input:checked + .slider:before {
@@ -144,15 +169,6 @@ input:checked + .slider:before {
   -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-} 
 
 h3 {
   margin-bottom: 5px;
