@@ -8,7 +8,7 @@
   justify-content: center;
 }
 
-.b-instrument {
+.drum-pad {
   width: 125px;
   height: 100px;
   background: gray;
@@ -19,7 +19,7 @@
   border-radius: 3px;
 }
 
-.b-instrument-pressed {
+.pressed {
   width: 125px;
   height: 100px;
   background: gray;
@@ -51,7 +51,7 @@
   font-size: 26px;
 }
 
-.pad {
+#drum-machine {
   background: black;
   width: 750px;
   height: 425px;
@@ -70,7 +70,7 @@
   width: 40%;
 }
 
-.display-name {
+#display {
   width: 150px;
   height: 25px;
   background: green;
