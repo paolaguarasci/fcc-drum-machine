@@ -26,7 +26,7 @@
 .intruments {
   display: flex;
   flex-flow: row;
-    flex-wrap: nowrap;
+  flex-wrap: nowrap;
   flex-wrap: nowrap;
   flex-wrap: wrap;
   width: 435px;
@@ -39,4 +39,26 @@
   width: 750px;
   height: 425px;
   padding: 20px;
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+}
+
+.settings {
+  /* background: azure; */
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  width: 40%;
+}
+
+.display-name {
+  width: 150px;
+  height: 25px;
+  background: green;
+  text-align: center;
+  padding: 10px;
+  font-size: large;
+  font-weight: bold;
 }
