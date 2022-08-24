@@ -137,7 +137,7 @@ function App() {
   return (
     <div className="App">
       <div id="drum-machine">
-        <div className="intruments">
+        <div className="instruments">
           <ButtonI
             volume={selectedVolume}
             powerState={selectedPower}

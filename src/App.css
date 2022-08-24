@@ -62,7 +62,7 @@
   -moz-box-shadow: 4px 5px 6px -3px rgba(0, 0, 0, 0.75) inset;
 }
 
-.intruments {
+.instruments {
   display: flex;
   flex-flow: row;
   flex-wrap: nowrap;
