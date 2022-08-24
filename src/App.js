@@ -32,6 +32,7 @@ function ButtonI(props) {
   });
 
   useEffect(() => {
+    console.log("POWER STATE ", props.powerState)
     if (props.selectedKey == props.keyButton) {
       handleClick();
       props.setKey('');
@@ -73,16 +74,22 @@ function ButtonP(props) {
 
   const setMsgStatus = () => {
     console.log(props.powerState);
-    // Un po' controintuitivo, ma funziona
-    props.setMessage('Power ' + (props.powerState ? 'OFF' : 'ON'));
+    // leggermente contro intuitivo!
+    props.setMessage('Power ' + (!props.powerState ? 'ON' : 'OFF'));
     setTimeout(() => {
       props.setMessage('');
     }, 1000);
   };
 
+
+
   return (
-    <div className="powerbutton" onClick={handleClick}>
-      Power State: {props.powerState ? 'Ok' : 'No'}
+    <div className="powerbutton">
+      <h3>Power</h3>
+      <label className="switch">
+        <input type="checkbox" onChange={handleClick} checked={props.powerState}/>
+        <span className="slider"></span>
+      </label>
     </div>
   );
 }
@@ -98,13 +105,13 @@ function VolumeSlider(props) {
   };
 
   return (
-    <div>
+    <div className='volume-slider'>
+      <h3>Volume</h3>
       <input
         type="range"
         min="1"
         max="100"
         value={props.volume}
-        className="slider"
         id="myRange"
         onChange={handleChange}
       />
