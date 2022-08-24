@@ -32,7 +32,6 @@ function ButtonI(props) {
   });
 
   useEffect(() => {
-    console.log("POWER STATE ", props.powerState)
     if (props.selectedKey == props.keyButton) {
       handleClick();
       props.setKey('');
@@ -73,7 +72,6 @@ function ButtonP(props) {
   };
 
   const setMsgStatus = () => {
-    console.log(props.powerState);
     // leggermente contro intuitivo!
     props.setMessage('Power ' + (!props.powerState ? 'ON' : 'OFF'));
     setTimeout(() => {
