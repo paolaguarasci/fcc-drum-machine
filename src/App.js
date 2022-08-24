@@ -32,15 +32,12 @@ function ButtonI(props) {
   });
 
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyPress);
+    if (props.selectedKey == props.keyButton) {
+      handleClick();
+      props.setKey('');
+    }
     return () => {};
   });
-
-  const handleKeyPress = (event) => {
-    if (event.key === props.keyButton) {
-      handleClick();
-    }
-  };
 
   const handleClick = () => {
     if (props.powerState) {
@@ -116,9 +113,19 @@ function VolumeSlider(props) {
 }
 
 function App() {
+  const [selectedKey, setKey] = useState('');
   const [selectedMessage, setMessage] = useState('');
   const [selectedPower, setPower] = useState(true);
   const [selectedVolume, setVolume] = useState(45);
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyPress);
+    return () => {};
+  }, []);
+
+  const handleKeyPress = (event) => {
+    setKey(event.key);
+  };
 
   return (
     <div className="App">
@@ -130,6 +137,8 @@ function App() {
             setMsg={setMessage}
             keyButton="q"
             name="Drum"
+            selectedKey={selectedKey}
+            setKey={setKey}
           />
           <ButtonI
             volume={selectedVolume}
@@ -137,6 +146,8 @@ function App() {
             setMsg={setMessage}
             keyButton="w"
             name="HHclose"
+            selectedKey={selectedKey}
+            setKey={setKey}
           />
           <ButtonI
             volume={selectedVolume}
@@ -144,6 +155,8 @@ function App() {
             setMsg={setMessage}
             keyButton="e"
             name="Tamb"
+            selectedKey={selectedKey}
+            setKey={setKey}
           />
           <ButtonI
             volume={selectedVolume}
@@ -151,6 +164,8 @@ function App() {
             setMsg={setMessage}
             keyButton="a"
             name="Cowbell"
+            selectedKey={selectedKey}
+            setKey={setKey}
           />
           <ButtonI
             volume={selectedVolume}
@@ -158,6 +173,8 @@ function App() {
             setMsg={setMessage}
             keyButton="s"
             name="HHopen"
+            selectedKey={selectedKey}
+            setKey={setKey}
           />
           <ButtonI
             volume={selectedVolume}
@@ -165,6 +182,8 @@ function App() {
             setMsg={setMessage}
             keyButton="d"
             name="Tom 1"
+            selectedKey={selectedKey}
+            setKey={setKey}
           />
           <ButtonI
             volume={selectedVolume}
@@ -172,6 +191,8 @@ function App() {
             setMsg={setMessage}
             keyButton="z"
             name="Crash"
+            selectedKey={selectedKey}
+            setKey={setKey}
           />
           <ButtonI
             volume={selectedVolume}
@@ -179,6 +200,8 @@ function App() {
             setMsg={setMessage}
             keyButton="x"
             name="Hiconga"
+            selectedKey={selectedKey}
+            setKey={setKey}
           />
           <ButtonI
             volume={selectedVolume}
@@ -186,6 +209,8 @@ function App() {
             setMsg={setMessage}
             keyButton="c"
             name="Tom 2"
+            selectedKey={selectedKey}
+            setKey={setKey}
           />
         </div>
         <div className="settings">
