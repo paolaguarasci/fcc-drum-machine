@@ -11,7 +11,7 @@ import s6 from './assets/sounds/drum/80s-TOM1.wav';
 import s7 from './assets/sounds/drum/80s-CRASH1.wav';
 import s8 from './assets/sounds/drum/80s-HICONGA.wav';
 import s9 from './assets/sounds/drum/80s-TOM2.wav';
-import useSound from 'use-sound';
+import useSound from 'use-sound'; // https://github.com/joshwcomeau/use-sound
 
 function ButtonI(props) {
   const [isActive, setActive] = useState(false);
@@ -27,7 +27,9 @@ function ButtonI(props) {
     c: s9
   };
 
-  const [playSound] = useSound(mapperSound[props.keyButton]);
+  const [playSound] = useSound(mapperSound[props.keyButton], {
+    volume: props.volume / 100
+  });
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyPress);
@@ -69,7 +71,18 @@ function DisplayName(props) {
 function ButtonP(props) {
   const handleClick = () => {
     props.setPower(!props.powerState);
+    setMsgStatus();
   };
+
+  const setMsgStatus = () => {
+    console.log(props.powerState);
+    // Un po' controintuitivo, ma funziona
+    props.setMessage('Power ' + (props.powerState ? 'OFF' : 'ON'));
+    setTimeout(() => {
+      props.setMessage('');
+    }, 1000);
+  };
+
   return (
     <div className="powerbutton" onClick={handleClick}>
       Power State: {props.powerState ? 'Ok' : 'No'}
@@ -77,63 +90,98 @@ function ButtonP(props) {
   );
 }
 
+function VolumeSlider(props) {
+  const handleChange = (e) => {
+    props.setVolume(e.target.value);
+    props.setMessage('Volume Set ' + e.target.value);
+
+    setTimeout(() => {
+      props.setMessage('');
+    }, 1000);
+  };
+
+  return (
+    <div>
+      <input
+        type="range"
+        min="1"
+        max="100"
+        value={props.volume}
+        className="slider"
+        id="myRange"
+        onChange={handleChange}
+      />
+    </div>
+  );
+}
+
 function App() {
   const [selectedMessage, setMessage] = useState('');
   const [selectedPower, setPower] = useState(true);
+  const [selectedVolume, setVolume] = useState(45);
 
   return (
     <div className="App">
       <div className="pad">
         <div className="intruments">
           <ButtonI
+            volume={selectedVolume}
             powerState={selectedPower}
             setMsg={setMessage}
             keyButton="q"
             name="Drum"
           />
           <ButtonI
+            volume={selectedVolume}
             powerState={selectedPower}
             setMsg={setMessage}
             keyButton="w"
             name="HHclose"
           />
           <ButtonI
+            volume={selectedVolume}
             powerState={selectedPower}
             setMsg={setMessage}
             keyButton="e"
             name="Tamb"
           />
           <ButtonI
+            volume={selectedVolume}
             powerState={selectedPower}
             setMsg={setMessage}
             keyButton="a"
             name="Cowbell"
           />
           <ButtonI
+            volume={selectedVolume}
             powerState={selectedPower}
             setMsg={setMessage}
             keyButton="s"
             name="HHopen"
           />
           <ButtonI
+            volume={selectedVolume}
             powerState={selectedPower}
             setMsg={setMessage}
             keyButton="d"
             name="Tom 1"
           />
           <ButtonI
+            volume={selectedVolume}
             powerState={selectedPower}
             setMsg={setMessage}
             keyButton="z"
             name="Crash"
           />
           <ButtonI
+            volume={selectedVolume}
             powerState={selectedPower}
             setMsg={setMessage}
             keyButton="x"
             name="Hiconga"
           />
           <ButtonI
+            volume={selectedVolume}
             powerState={selectedPower}
             setMsg={setMessage}
             keyButton="c"
@@ -141,8 +189,17 @@ function App() {
           />
         </div>
         <div className="settings">
-          <ButtonP powerState={selectedPower} setPower={setPower} />
+          <ButtonP
+            powerState={selectedPower}
+            setPower={setPower}
+            setMessage={setMessage}
+          />
           <DisplayName toDisplay={selectedMessage} />
+          <VolumeSlider
+            volume={selectedVolume}
+            setVolume={setVolume}
+            setMessage={setMessage}
+          />
         </div>
       </div>
     </div>
