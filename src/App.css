@@ -79,3 +79,13 @@
   font-size: large;
   font-weight: bold;
 }
+
+
+.powerbutton {
+  color: green;
+font-weight: bold;
+width: 170px;
+text-align: center;
+background-color: white;
+margin-bottom: 10px;
+}

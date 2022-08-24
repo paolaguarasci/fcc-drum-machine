@@ -41,13 +41,15 @@ function ButtonI(props) {
   };
 
   const handleClick = () => {
-    setActive(true);
-    playSound();
-    props.setMsg(props.name);
-    setTimeout(() => {
-      setActive(false);
-      props.setMsg("");
-    }, 500);
+    if (props.powerState) {
+      setActive(true);
+      playSound();
+      props.setMsg(props.name);
+      setTimeout(() => {
+        setActive(false);
+        props.setMsg('');
+      }, 500);
+    }
   };
 
   return (
@@ -64,24 +66,82 @@ function DisplayName(props) {
   return <div className="display-name">{props.toDisplay}</div>;
 }
 
+function ButtonP(props) {
+  const handleClick = () => {
+    props.setPower(!props.powerState);
+  };
+  return (
+    <div className="powerbutton" onClick={handleClick}>
+      Power State: {props.powerState ? 'Ok' : 'No'}
+    </div>
+  );
+}
+
 function App() {
   const [selectedMessage, setMessage] = useState('');
+  const [selectedPower, setPower] = useState(true);
 
   return (
     <div className="App">
       <div className="pad">
         <div className="intruments">
-          <ButtonI setMsg={setMessage} keyButton="q" name="Drum" />
-          <ButtonI setMsg={setMessage} keyButton="w" name="HHclose" />
-          <ButtonI setMsg={setMessage} keyButton="e" name="Tamb" />
-          <ButtonI setMsg={setMessage} keyButton="a" name="Cowbell" />
-          <ButtonI setMsg={setMessage} keyButton="s" name="HHopen" />
-          <ButtonI setMsg={setMessage} keyButton="d" name="Tom 1" />
-          <ButtonI setMsg={setMessage} keyButton="z" name="Crash" />
-          <ButtonI setMsg={setMessage} keyButton="x" name="Hiconga" />
-          <ButtonI setMsg={setMessage} keyButton="c" name="Tom 2" />
+          <ButtonI
+            powerState={selectedPower}
+            setMsg={setMessage}
+            keyButton="q"
+            name="Drum"
+          />
+          <ButtonI
+            powerState={selectedPower}
+            setMsg={setMessage}
+            keyButton="w"
+            name="HHclose"
+          />
+          <ButtonI
+            powerState={selectedPower}
+            setMsg={setMessage}
+            keyButton="e"
+            name="Tamb"
+          />
+          <ButtonI
+            powerState={selectedPower}
+            setMsg={setMessage}
+            keyButton="a"
+            name="Cowbell"
+          />
+          <ButtonI
+            powerState={selectedPower}
+            setMsg={setMessage}
+            keyButton="s"
+            name="HHopen"
+          />
+          <ButtonI
+            powerState={selectedPower}
+            setMsg={setMessage}
+            keyButton="d"
+            name="Tom 1"
+          />
+          <ButtonI
+            powerState={selectedPower}
+            setMsg={setMessage}
+            keyButton="z"
+            name="Crash"
+          />
+          <ButtonI
+            powerState={selectedPower}
+            setMsg={setMessage}
+            keyButton="x"
+            name="Hiconga"
+          />
+          <ButtonI
+            powerState={selectedPower}
+            setMsg={setMessage}
+            keyButton="c"
+            name="Tom 2"
+          />
         </div>
         <div className="settings">
+          <ButtonP powerState={selectedPower} setPower={setPower} />
           <DisplayName toDisplay={selectedMessage} />
         </div>
       </div>
