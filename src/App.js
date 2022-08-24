@@ -1,5 +1,7 @@
 import './App.css';
 
+import { useEffect, useState } from 'react';
+
 import s1 from './assets/sounds/drum/80s-Bdrum1.wav';
 import s2 from './assets/sounds/drum/80s-HHCLOSE2.wav';
 import s3 from './assets/sounds/drum/80s-TAMB1.wav';
@@ -10,9 +12,9 @@ import s7 from './assets/sounds/drum/80s-CRASH1.wav';
 import s8 from './assets/sounds/drum/80s-HICONGA.wav';
 import s9 from './assets/sounds/drum/80s-TOM2.wav';
 import useSound from 'use-sound';
-import { useState } from 'react';
 
 function ButtonI(props) {
+  const [isActive, setActive] = useState(false);
   const mapperSound = {
     q: s1,
     w: s2,
@@ -27,24 +29,44 @@ function ButtonI(props) {
 
   const [playSound] = useSound(mapperSound[props.keyButton]);
 
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyPress);
+    return () => {};
+  });
+
+  const handleKeyPress = (event) => {
+    if (event.key === props.keyButton) {
+      handleClick();
+    }
+  };
+
+  const handleClick = () => {
+    setActive(true);
+    playSound();
+    props.setMsg(props.name);
+    setTimeout(() => {
+      setActive(false);
+      props.setMsg("");
+    }, 500);
+  };
+
   return (
-    <div className="b-instrument" onClick={() => {playSound(); props.setMsg(props.name);}}>
+    <div
+      className={isActive ? 'b-instrument-pressed' : 'b-instrument'}
+      onClick={handleClick}
+    >
       <p>{props.keyButton.toUpperCase()}</p>
     </div>
   );
 }
 
 function DisplayName(props) {
-  return (
-    <div className='display-name'>
-      {props.toDisplay}
-    </div>
-  );
-
+  return <div className="display-name">{props.toDisplay}</div>;
 }
 
 function App() {
-  const [selectedMessage,setMessage]=useState('');
+  const [selectedMessage, setMessage] = useState('');
+
   return (
     <div className="App">
       <div className="pad">
@@ -60,7 +82,7 @@ function App() {
           <ButtonI setMsg={setMessage} keyButton="c" name="Tom 2" />
         </div>
         <div className="settings">
-          <DisplayName toDisplay={selectedMessage}/>
+          <DisplayName toDisplay={selectedMessage} />
         </div>
       </div>
     </div>

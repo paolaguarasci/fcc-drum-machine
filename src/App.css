@@ -19,8 +19,23 @@
   border-radius: 3px;
 }
 
-.b-instrument:hover {
-  background: red;
+.b-instrument-pressed {
+  width: 125px;
+  height: 100px;
+  background: gray;
+  display: flex;
+  margin: 10px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  background: greenyellow;
+
+
+
+  box-shadow: 4px 5px 6px -3px rgba(0,0,0,0.75) inset;
+-webkit-box-shadow: 4px 5px 6px -3px rgba(0,0,0,0.75) inset;
+-moz-box-shadow: 4px 5px 6px -3px rgba(0,0,0,0.75) inset;
+
 }
 
 .intruments {
